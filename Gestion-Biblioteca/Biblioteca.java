@@ -11,19 +11,9 @@ public class Biblioteca {
     
     public Biblioteca(String p_nombre){
         this.setNombre(p_nombre);
-        this.setSocios(new ArrayList<>());
-        this.setLibros(new ArrayList<>());
+        this.setSocios(new ArrayList<Socio>());
+        this.setLibros(new ArrayList<Libro>());
     }
-    public Biblioteca(String p_nombre, ArrayList<Socio> p_socios){
-        this.setNombre(p_nombre);
-        this.setSocios(p_socios);
-        this.setLibros(new ArrayList<>());
-    }
-    /*public Biblioteca(String p_nombre, ArrayList<Libro> p_libros){
-        this.setNombre(p_nombre);
-        this.setSocios(new ArrayList<>());
-        this.setLibros(p_libros);
-    }*/
     public Biblioteca(String p_nombre, ArrayList<Socio> p_socios, ArrayList<Libro> p_libros){
         this.setNombre(p_nombre);
         this.setSocios(p_socios);

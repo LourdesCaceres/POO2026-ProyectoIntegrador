@@ -109,10 +109,8 @@ public class Prestamo {
             strDevolucion = "No devuelto";
         }
 
-        return "Retiro: " + strRetiro + " - Devolución: " + strDevolucion + "
-" +
-               "Libro: " + this.getLibro().getTitulo() + " 
-" +
+        return "Retiro: " + strRetiro + " - Devolución: " + strDevolucion + "" +
+               "Libro: " + this.getLibro().getTitulo() + " " +
                "Socio: " + this.getSocio().getNombre();
     }
 }

@@ -124,7 +124,7 @@ public class Libro
      * @return último prestamo registrado del libro.
      */
     public Prestamo ultimoPrestamo(){
-        Prestamo ultPrestamo = new Prestamo();
+        Prestamo ultPrestamo = null;
         for(Prestamo unPrestamo : this.getPrestamos()){
             ultPrestamo = unPrestamo;
         }

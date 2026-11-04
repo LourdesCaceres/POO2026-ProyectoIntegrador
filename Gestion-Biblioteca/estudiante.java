@@ -23,7 +23,7 @@ public class Estudiante extends Socio{
     public boolean puedePedir(){
         //Un estudiante puede pedir si su super.puedePedir() es true (sin vencidos)
         //Y además tiene estrictamente menos de 3 libros prestados en su poder.
-        return super.puedePedir() && (this.cartLibrosPrestados() < 3);
+        return super.puedePedir() && (this.cantLibrosPrestados() < 3);
     }
     
      }
