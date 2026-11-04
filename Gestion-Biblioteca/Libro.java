@@ -5,6 +5,7 @@ import java.util.ArrayList;
  * 
  * @author Chavez, Tobías Acdel 
  * @version 1.0 - 03/11/2026
+ * @version 2.0 - 04/11/2026
  */
 public class Libro
 {
@@ -89,6 +90,25 @@ public class Libro
         return this.prestamos;
     }
     
+    /**
+     * Agrega un prestamo a la colección.
+     * 
+     * @param p_prestamo: Prestamo - prestamo a agregar a la colección.
+     * @return true/false según si se pudo agregar.
+     */
+    public boolean agregarPrestamo(Prestamo p_prestamo){
+        return this.getPrestamos().add(p_prestamo);
+    }
+    
+    /**
+     * Quita un prestamo de la colección.
+     * 
+     * @param p_prestamo: Prestamo - prestamo a quitar de la colección.
+     * @return true/false según si se pudo quitar el elemento.
+     */
+    public boolean quitarPrestamo(Prestamo p_prestamo){
+        return this.getPrestamos().remove(p_prestamo);
+    }
     
     /**
      * Concatena una cadena informativa con el título del libro.
@@ -103,7 +123,7 @@ public class Libro
      * 
      * @return último prestamo registrado del libro.
      */
-    private Prestamo ultimoPrestamo(){
+    public Prestamo ultimoPrestamo(){
         Prestamo ultPrestamo = new Prestamo();
         for(Prestamo unPrestamo : this.getPrestamos()){
             ultPrestamo = unPrestamo;
@@ -120,7 +140,7 @@ public class Libro
      * 
      * @return false/true según si el libro fue prestado a algún socio.
      */
-    private boolean prestado(){
+    public boolean prestado(){
         Prestamo ultimo = this.ultimoPrestamo();
         
         if(ultimo != null && ultimo.getFechaDevolucion() == null){
