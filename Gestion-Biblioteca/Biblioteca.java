@@ -48,6 +48,17 @@ public class Biblioteca {
         this.getLibros().add(new Libro(p_titulo, p_edicion, p_editorial, p_anio));
     }
 
+    /**
+     * Metodo que agrega un socio de tipo Estudiante a la lista
+     * 
+     * @param p_fechaRetiro
+     * @param p_socio
+     * @param p_libro
+     */
+    public void nuevoSocioEstudiante(int p_dniSocio, String p_nombre, String p_carrera){
+        this.getSocios().add(new Estudiante(p_dniSocio, p_nombre, 0, p_carrera));
+    }
+    // 
     public boolean prestarLibro(Calendar p_fechaRetiro, Socio p_socio, Libro p_libro) {
         if (p_socio != null) {
             if (p_socio.puedePedir() && !p_libro.prestado()) {
@@ -116,22 +127,21 @@ public class Biblioteca {
         return listaSocio + "\n******************************************\nCant. Socios tipo Estudiante: " + estudiantes + "\nCant. Socios tipo Docente: " + docentes + "\n******************************************\n";
     }
 
-public String listaDeTitulos() {
-        int i = 0;
-        HashSet<String> titulos = new HashSet<>();
+    public String listaDeTitulos() {
+            int i = 0;
+            HashSet<String> titulos = new HashSet<>();
 
-        for(Libro unLibro : this.getLibros()) {
-            titulos.add(unLibro.getTitulo());
-        }
+            for(Libro unLibro : this.getLibros()) {
+                titulos.add(unLibro.getTitulo());
+            }
 
-        String listaTitulos = "\tLista de Títulos:\n\n";
+            String listaTitulos = "\tLista de Títulos:\n\n";
 
-        for(String unLibro : titulos) {
-            ++i;
-            listaTitulos = listaTitulos + i + ") " + unLibro + "\n";
-        }
-
-        return listaTitulos;
+            for(String unLibro : titulos) {
+                ++i;
+                listaTitulos = listaTitulos + i + ") " + unLibro + "\n";
+            }
+            return listaTitulos;
     }
 
     public String listaDeLibros() {
@@ -150,15 +160,21 @@ public String listaDeTitulos() {
         return listaLibros;
     }
 
-    public String listaDeDocentesResponsables() {
+    /*public String listaDeDocentesResponsables() {
         String listaResponsables = "\tLista de Docentes Responsables:\n\n";
 
-        for(Docente docentes : this.getSocios().docenteResponsables()) {
+        ArrayList<Docente> docentes =  
+
+        for(Docente docentes : this.getSocios().esResponsable()) {
             listaResponsables = listaResponsables + "*" + docentes.toString() + "\n";
         }
-
+        for(Socio unSocio : this.getSocios()){
+            if(unSocio.puedePedir()){
+                listaResponsables = listaResponsables + "*" + docentes.toString() + "\n";
+            }
+        }
         return listaResponsables;
-    }
+    }*/
 
 }
 

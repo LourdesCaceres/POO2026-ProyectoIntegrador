@@ -29,11 +29,15 @@ public class Docente extends Socio{
     public boolean esResponsable(){
         //Retorna true si el docente nunca tuvo ningún préstamo vencido.
         //(Esto se evalua recorriendo sus préstamos en la superclase socio)
-        boolean responsable = true;
+        /*boolean responsable = true;
         for (Prestamo p : this.getPrestamos()){
-            
+            if(super.)
         }
-        return responsable;
+        return responsable;*/
+        if(this.puedePedir()){
+            return true;
+        }
+        return false;
     }
     
     public void cambiarDiasDePrestamo(int p_dias){
