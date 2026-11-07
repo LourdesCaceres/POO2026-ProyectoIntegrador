@@ -3,6 +3,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 /**
+ * Clase que representa el las características y acciones propias de una bliblioteca
  * 
  * @author Lourdes G. Caceres
  * @author Gabriel Esquivel
@@ -69,9 +70,46 @@ public class Biblioteca {
     public void nuevoSocioEstudiante(int p_dniSocio, String p_nombre, String p_carrera){
         this.getSocios().add(new Estudiante(p_dniSocio, p_nombre, p_carrera));
     }
-
+    /**
+     * Método que agrega un socio tipo Docente a la lista
+     * 
+     * @param p_dniSocio
+     * @param p_nombre
+     * @param p_area
+     */
     public void nuevoSocioDocente(int p_dniSocio, String p_nombre, String p_area){
         this.getSocios().add(new Docente(p_dniSocio, p_nombre, p_area));
+    }
+
+    public void devolverLibro(Libro p_libro){
+        //agregar excepción y tambien fecha
+        this.getLibros().remove(p_libro);
+    }
+    /**
+     * 
+     * @param p_estudiante
+     * @return true (si existe el estudiante y lo remueve) false si no existe en la lista.
+     */
+    public boolean desafiliarSocioEstudiante(Estudiante p_estudiante){
+        return this.getSocios().remove(p_estudiante);
+    }
+    /**
+     * 
+     * @param p_docente
+     * @return true (si existe el docente y lo remueve) false si no existe en la lista.
+     */
+    public boolean desafiliarSocioDocente(Docente p_docente){
+        return this.getSocios().remove(p_docente);
+    }
+    public ArrayList<Prestamo> prestamosVencidos(){
+        ArrayList<Prestamo> prestamosVencidos = new ArrayList<>();
+
+        return prestamosVencidos;
+    }
+    public ArrayList<Docente> docentesResponsables(){
+        ArrayList<Docente> responsables = new ArrayList<>();
+
+        return responsables;
     }
 
     // metodo Gabriel Esquivel
@@ -175,22 +213,19 @@ public class Biblioteca {
 
         return listaLibros;
     }
-
-    /*public String listaDeDocentesResponsables() {
+    /**
+     * 
+     * @return 
+     */
+    public String listaDeDocentesResponsables() {
         String listaResponsables = "\tLista de Docentes Responsables:\n\n";
 
-        ArrayList<Docente> docentes =  
-
-        for(Docente docentes : this.getSocios().esResponsable()) {
+        for(Docente docentes : this.docentesResponsables()) {
             listaResponsables = listaResponsables + "*" + docentes.toString() + "\n";
         }
-        for(Socio unSocio : this.getSocios()){
-            if(unSocio.puedePedir()){
-                listaResponsables = listaResponsables + "*" + docentes.toString() + "\n";
-            }
-        }
+
         return listaResponsables;
-    }*/
+    }
 
 }
 
