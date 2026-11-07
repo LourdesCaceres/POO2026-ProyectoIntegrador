@@ -2,7 +2,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
-
+/**
+ * 
+ * @author Lourdes G. Caceres
+ * @author Gabriel Esquivel
+ * @author Mirta Fernandez 
+ * 
+ * @version 1.0 02/11/2026
+ */
 public class Biblioteca {
 
     private String nombre;
@@ -20,30 +27,34 @@ public class Biblioteca {
         this.setLibros(p_libros);
     }
     
+    //Mutadores (SETTERS)
     private void setNombre(String p_nombre) {
         this.nombre = p_nombre;
     }
-
     private void setSocios(ArrayList<Socio> p_socios) {
         this.socios = p_socios;
     }
-
     private void setLibros(ArrayList<Libro> p_libros) {
         this.libros = p_libros;
     }
-
+    //Observadores (GETTERS)
     public String getNombre() {
         return this.nombre;
     }
-
     public ArrayList<Socio> getSocios() {
         return this.socios;
     }
-
     public ArrayList<Libro> getLibros() {
         return this.libros;
     }
 
+    /**
+     * 
+     * @param p_titulo
+     * @param p_edicion
+     * @param p_editorial
+     * @param p_anio
+     */
     public void nuevoLibro(String p_titulo, int p_edicion, String p_editorial, int p_anio) {
         this.getLibros().add(new Libro(p_titulo, p_edicion, p_editorial, p_anio));
     }
@@ -51,14 +62,19 @@ public class Biblioteca {
     /**
      * Metodo que agrega un socio de tipo Estudiante a la lista
      * 
-     * @param p_fechaRetiro
-     * @param p_socio
-     * @param p_libro
+     * @param p_dniSocio
+     * @param p_nombre
+     * @param p_carrera
      */
     public void nuevoSocioEstudiante(int p_dniSocio, String p_nombre, String p_carrera){
-        this.getSocios().add(new Estudiante(p_dniSocio, p_nombre, 0, p_carrera));
+        this.getSocios().add(new Estudiante(p_dniSocio, p_nombre, p_carrera));
     }
-    // 
+
+    public void nuevoSocioDocente(int p_dniSocio, String p_nombre, String p_area){
+        this.getSocios().add(new Docente(p_dniSocio, p_nombre, p_area));
+    }
+
+    // metodo Gabriel Esquivel
     public boolean prestarLibro(Calendar p_fechaRetiro, Socio p_socio, Libro p_libro) {
         if (p_socio != null) {
             if (p_socio.puedePedir() && !p_libro.prestado()) {

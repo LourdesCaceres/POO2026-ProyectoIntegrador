@@ -1,8 +1,8 @@
 public class Docente extends Socio{
     private String area;
     
-    public Docente(int p_dniSocio, String p_nombre, int p_diasPrestamo, String p_area){
-        super(p_dniSocio, p_nombre, p_diasPrestamo);
+    public Docente(int p_dniSocio, String p_nombre, String p_area){
+        super(p_dniSocio, p_nombre, 5);
         this.setArea(p_area);
     }
     

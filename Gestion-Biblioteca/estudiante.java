@@ -1,8 +1,8 @@
 public class Estudiante extends Socio{
     private String carrera;
     
-    public Estudiante(int p_dniSocio, String p_nombre, int p_diasPrestamo, String p_carrera){
-        super(p_dniSocio, p_nombre, p_diasPrestamo);
+    public Estudiante(int p_dniSocio, String p_nombre, String p_carrera){
+        super(p_dniSocio, p_nombre, 20);
         this.setCarrera(p_carrera);
     }
     
