@@ -5,19 +5,16 @@ Práctico Integrador (TP7) de POO 2026. Gestión de Biblioteca en Java: socios (
 ```text
 POO2026-ProyectoIntegrador/
 |--- Gestion-Biblioteca/
-|    |--- clases.md
-|--- decisiones-disenio.md
+|    |--- docs/
+|    |    |*Tdoso los javadocs del proyecto*
+|    |*Todo el código del proyecto*
+|--- Informe-GestionBiblioteca
 |--- README.md
 ```
-### Contenido
-* `Gestion-Biblioteca/`: carpeta donde se encuentran todos los archivos .java
-* `clases.md`: documento con la distribución (en subgrupos) de las clases del proyecto.
-* `decisiones-disenio.md`: único documento, para registrar las decisiones de diseño acordadas por el equipo.
 
-### Índice
+### Decisiones de Diseño
+Además de la decisión de utilizar este repositorio de GitHub para la realización del proyecto, durante el desarrollo del mismo decidimos implementar la persistencia de archivos que era una opción que vimos viable utilizar para que nuestro trabajo fuera más completo.
 
-- [Estructura del repositorio](#estructura-del-repositorio)
-- [Contenido](#contenido)
-- [Gestion-Biblioteca/](Gestion-Biblioteca/)
-  - [clases.md](Gestion-Biblioteca/clases.md)
-- [decisiones-disenio.md](decisiones-disenio.md)
+### Trello
+Además de sistemas de comunicación como chats de aplicaciones y reuniones presenciales, la herramienta Trello fue de especial ayuda para dividir tareas, asignar responsables y establecer fechas a cada parte del proyecto.
+Link: https://trello.com/b/bSrYbPoj/proyecto-integrador-poo-2026
