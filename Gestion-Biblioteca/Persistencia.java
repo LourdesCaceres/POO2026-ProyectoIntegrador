@@ -44,14 +44,16 @@ public class Persistencia {
     public static void guardarSocios(Biblioteca biblioteca, String archivo) {
         try (BufferedWriter escritor = new BufferedWriter(new FileWriter(archivo))) {
             for (Socio socio : biblioteca.getSocios()) {
-                String base = socio.getDniSocio() + ";" + socio.getNombre() + ";" + socio.getDiasPrestamo() + ";" 
-                                + socio.soyDeLaClase();
+                
+                // ORDEN DE GUARDADO: [0]DNI ; [1]Nombre ; [2]Dias ; [3]Tipo
+                String base = socio.getDniSocio() + ";" + socio.getNombre() + ";" + socio.getDiasPrestamo() + ";" + socio.soyDeLaClase();
+                
                 if (socio instanceof Estudiante) {
                     Estudiante estudiante = (Estudiante) socio;
-                    escritor.write(base + ";" + estudiante.getCarrera());
+                    escritor.write(base + ";" + estudiante.getCarrera()); // [4] Extra
                 } else {
                     Docente docente = (Docente) socio;
-                    escritor.write(base + ";" + docente.getArea());
+                    escritor.write(base + ";" + docente.getArea());       // [4] Extra
                 }
                 escritor.newLine();
             }
@@ -70,11 +72,13 @@ public class Persistencia {
             while ((linea = lector.readLine()) != null) {
                 if (linea.trim().isEmpty()) continue;
                 String[] datos = linea.split(";");
-                int dni = Integer.parseInt(datos[1]);
-                String nombre = datos[2];
-               // int diasPrestamo = Integer.parseInt(datos[2]);
-                String tipoSocio = datos[0];
-                String extra = datos.length > 4 ? datos[4] : "";
+                
+                // ORDEN DE CARGA: (Estrictamente igual al de guardado)
+                int dni = Integer.parseInt(datos[0]);          // Índice 0
+                String nombre = datos[1];                      // Índice 1
+                int diasPrestamo = Integer.parseInt(datos[2]); // Índice 2 (Descomentado)
+                String tipoSocio = datos[3];                   // Índice 3
+                String extra = datos.length > 4 ? datos[4] : ""; // Índice 4
 
                 if (tipoSocio.equalsIgnoreCase("Estudiante")) {
                     biblioteca.nuevoSocioEstudiante(dni, nombre, extra);
