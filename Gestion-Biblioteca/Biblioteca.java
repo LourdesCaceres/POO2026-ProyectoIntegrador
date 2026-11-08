@@ -81,9 +81,13 @@ public class Biblioteca {
         this.getSocios().add(new Docente(p_dniSocio, p_nombre, p_area));
     }
 
-    public void devolverLibro(Libro p_libro){
-        //agregar excepción y tambien fecha
-        this.getLibros().remove(p_libro);
+    public void devolverLibro(Libro p_libro) throws LibroNoPrestadoException {
+        // 1. Verificamos si el libro NO está prestado para lanzar la excepción
+        if (!p_libro.prestado()) {
+            throw new LibroNoPrestadoException("El libro '" + p_libro.getTitulo() + "' no se encuentra prestado actualmente.");
+        }
+        // 2. Si está prestado, obtenemos el último préstamo activo y le asignamos la fecha actual
+        p_libro.ultimoPrestamo().registrarFechaDevolucion(Calendar.getInstance());
     }
     /**
      * 
@@ -111,7 +115,19 @@ public class Biblioteca {
 
         return responsables;
     }
-
+    /**
+     * 
+     * @param p_titulo
+     * @return
+     */
+    public Libro buscarLibroPrestado(String p_titulo) {
+        for (Libro libro : libros) {
+            if (libro.prestado() && libro.getTitulo().equals(p_titulo)) {
+                return libro;
+            }
+        }
+        return null;
+    }
     // metodo Gabriel Esquivel
     public boolean prestarLibro(Calendar p_fechaRetiro, Socio p_socio, Libro p_libro) {
         if (p_socio != null) {
@@ -131,19 +147,17 @@ public class Biblioteca {
 
     public int cantidadSociosPorTipo(String p_objeto) {
         int cont = 0;
-
         for(Socio socios : this.getSocios()) {
             if (socios.soyDeLaClase().equalsIgnoreCase(p_objeto)) {
                 ++cont;
             }
         }
-
         return cont;
     }
 
     public String quienTieneElLibro(Libro p_libro) throws LibroNoPrestadoException {
         if (p_libro.prestado()) {
-            return p_libro.getPrestamo().getSocio().getNombre();
+            return p_libro.ultimoPrestamo().getSocio().getNombre();
         } else {
             throw new LibroNoPrestadoException("El libro '" + p_libro.getTitulo() +  "' se encuentra en la biblioteca\n");
         }
@@ -151,13 +165,11 @@ public class Biblioteca {
 
     public Socio buscarSocio(int p_dni) {
         Socio socio = null;
-
         for(Socio socios : this.getSocios()) {
             if (socios.getDniSocio() == p_dni) {
                 socio = socios;
             }
         }
-
         return socio;
     }
     
