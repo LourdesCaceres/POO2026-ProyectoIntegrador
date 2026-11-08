@@ -31,8 +31,8 @@ public class Persistencia {
                 String[] datos = linea.split(";");
                 String titulo = datos[0];
                 String editorial = datos[1];
-                int anio = Integer.parseInt(datos[2]);
-                int edicion = Integer.parseInt(datos[3]);
+                int edicion = Integer.parseInt(datos[2]);
+                int anio = Integer.parseInt(datos[3]);
                 biblioteca.nuevoLibro(titulo, edicion, editorial, anio);
             }
         } catch (IOException error) {
@@ -69,10 +69,10 @@ public class Persistencia {
             while ((linea = lector.readLine()) != null) {
                 if (linea.trim().isEmpty()) continue;
                 String[] datos = linea.split(";");
-                int dni = Integer.parseInt(datos[0]);
-                String nombre = datos[1];
+                int dni = Integer.parseInt(datos[1]);
+                String nombre = datos[2];
                // int diasPrestamo = Integer.parseInt(datos[2]);
-                String tipoSocio = datos[3];
+                String tipoSocio = datos[0];
                 String extra = datos.length > 4 ? datos[4] : "";
 
                 if (tipoSocio.equalsIgnoreCase("Estudiante")) {
