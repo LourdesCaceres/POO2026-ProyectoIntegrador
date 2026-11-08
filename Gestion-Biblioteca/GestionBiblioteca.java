@@ -12,6 +12,7 @@ public class GestionBiblioteca {
         // Cargar datos guardados si existen
         Persistencia.cargarLibros(biblioteca, "libros.csv");
         Persistencia.cargarSocios(biblioteca, "socios.csv");
+        Persistencia.cargarPrestamos(biblioteca, "prestamos.csv");
 
         System.out.println("Biblioteca cargada con " + biblioteca.getLibros().size() + " libros y " +
                 biblioteca.getSocios().size() + " socios.\n");
@@ -124,6 +125,7 @@ public class GestionBiblioteca {
                     System.out.println("Guardando datos antes de salir...");
                     Persistencia.guardarLibros(biblioteca, "libros.csv");
                     Persistencia.guardarSocios(biblioteca, "socios.csv");
+                    Persistencia.guardarPrestamos(biblioteca, "prestamos.csv");
                     System.out.println("Cerrando la biblioteca.");
                     break;
 

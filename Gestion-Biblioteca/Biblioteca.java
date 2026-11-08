@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashSet;
 /**
  * Clase que representa el las características y acciones propias de una bliblioteca
@@ -95,7 +94,10 @@ public class Biblioteca {
      * @return true (si existe el estudiante y lo remueve) false si no existe en la lista.
      */
     public boolean desafiliarSocioEstudiante(Estudiante p_estudiante){
-        return this.getSocios().remove(p_estudiante);
+        if (this.getSocios().contains(p_estudiante) && p_estudiante.cantLibrosPrestados() == 0) {
+            return this.getSocios().remove(p_estudiante);
+        }
+        return false;
     }
     /**
      * 
@@ -103,16 +105,36 @@ public class Biblioteca {
      * @return true (si existe el docente y lo remueve) false si no existe en la lista.
      */
     public boolean desafiliarSocioDocente(Docente p_docente){
-        return this.getSocios().remove(p_docente);
+        if(this.getSocios().contains(p_docente) && p_docente.cantLibrosPrestados() == 0){
+            return this.getSocios().remove(p_docente);
+        }
+        return false;
     }
     public ArrayList<Prestamo> prestamosVencidos(){
         ArrayList<Prestamo> prestamosVencidos = new ArrayList<>();
+        Calendar fechaActual = Calendar.getInstance();
 
+        for (Socio unSocio : this.getSocios()) {
+            for (Prestamo unPrestamo : unSocio.getPrestamos()) {
+                if (unPrestamo.getFechaDevolucion() == null && unPrestamo.vencido(fechaActual)) {
+                    prestamosVencidos.add(unPrestamo);
+                }
+            }
+        }
         return prestamosVencidos;
     }
     public ArrayList<Docente> docentesResponsables(){
         ArrayList<Docente> responsables = new ArrayList<>();
 
+        for(Socio unSocio : this.getSocios()){
+            if(unSocio instanceof Docente){
+                Docente unDocente = (Docente) unSocio;
+
+                if(unDocente.esResponsable()){
+                    responsables.add(unDocente);
+                }
+            }
+        }
         return responsables;
     }
     /**
