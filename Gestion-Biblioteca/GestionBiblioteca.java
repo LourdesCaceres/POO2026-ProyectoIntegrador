@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.Calendar;
 
 public class GestionBiblioteca {
 
@@ -27,6 +26,7 @@ public class GestionBiblioteca {
             System.out.println("4. Devolver libro");
             System.out.println("5. Mostrar libros");
             System.out.println("6. Mostrar socios");
+            System.out.println("7. Informes y Consultas");
             System.out.println("0. Salir");
             System.out.print("Elegir una opcion: ");
 
@@ -120,6 +120,46 @@ public class GestionBiblioteca {
                 case 6: // Mostrar socios
                     System.out.println(biblioteca.listaDeSocios());
                     break;
+
+                case 7: // Informes y Consultas
+                    System.out.println("\n===== INFORMES DE LA BIBLIOTECA =====");
+                    
+                    // 1. ¿Qué cantidad de socios de tipo Estudiante hay?
+                    System.out.println("\n-> Cantidad de socios de tipo Estudiante:");
+                    int cantEstudiantes = biblioteca.cantidadSociosPorTipo("Estudiante");
+                    System.out.println("Rta: " + cantEstudiantes + " estudiantes.");
+                    
+                    // 2. ¿Cuál es la lista de docentes que nunca han adeudado ni adeudan libros?
+                    System.out.println("\n-> Docentes responsables (sin deudas históricas):");
+                    System.out.print(biblioteca.listaDeDocentesResponsables());
+                    
+                    // 3. ¿Qué socio tiene prestado el libro “Programando con JAVA”?
+                    System.out.println("\n-> Búsqueda de un libro prestado:");
+                    System.out.print("Ingrese el título del libro a buscar (ej. Programando con JAVA): ");
+                    String tituloBuscado = teclado.nextLine(); // Leemos lo que escribe el usuario
+                    
+                    Libro libroBuscado = biblioteca.buscarLibroPrestado(tituloBuscado);
+                    if (libroBuscado != null) {
+                        try {
+                            String nombreSocio = biblioteca.quienTieneElLibro(libroBuscado);
+                            System.out.println("Rta: El libro '" + tituloBuscado + "' lo tiene el socio " + nombreSocio);
+                        } catch (LibroNoPrestadoException e) {
+                            System.out.println("Rta: " + e.getMessage());
+                        }
+                    } else {
+                        System.out.println("Rta: El libro '" + tituloBuscado + "' no existe o actualmente no se encuentra prestado.");
+                    }
+
+                    // 4. Qué libros están prestados, cuyo plazo de devolución se encuentre vencido.
+                    System.out.println("\n-> Préstamos con plazo vencido:");
+                    ArrayList<Prestamo> vencidos = biblioteca.prestamosVencidos();
+                    if (vencidos.isEmpty()) {
+                        System.out.println("Rta: Excelente, no hay préstamos vencidos al día de la fecha.");
+                    } else {
+                        for (Prestamo p : vencidos) {
+                            System.out.println("- Libro: '" + p.getLibro().getTitulo() + "' | Socio deudor: " + p.getSocio().getNombre());
+                        }
+                    }    
 
                 case 0: // Salir
                     System.out.println("Guardando datos antes de salir...");
