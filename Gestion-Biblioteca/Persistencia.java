@@ -44,7 +44,8 @@ public class Persistencia {
     public static void guardarSocios(Biblioteca biblioteca, String archivo) {
         try (BufferedWriter escritor = new BufferedWriter(new FileWriter(archivo))) {
             for (Socio socio : biblioteca.getSocios()) {
-                String base = socio.getDniSocio() + ";" + socio.getNombre() + ";" + socio.getDiasPrestamo() + ";" + socio.soyDeLaClase();
+                String base = socio.getDniSocio() + ";" + socio.getNombre() + ";" + socio.getDiasPrestamo() + ";" 
+                                + socio.soyDeLaClase();
                 if (socio instanceof Estudiante) {
                     Estudiante estudiante = (Estudiante) socio;
                     escritor.write(base + ";" + estudiante.getCarrera());
