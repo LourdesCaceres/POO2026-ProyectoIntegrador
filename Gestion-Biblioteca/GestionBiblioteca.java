@@ -27,6 +27,8 @@ public class GestionBiblioteca {
             System.out.println("5. Mostrar libros");
             System.out.println("6. Mostrar socios");
             System.out.println("7. Informes y Consultas");
+            System.out.println("8. Buscar un libro (Ver información)");
+            System.out.println("9. Buscar un socio (Ver información y préstamos)");
             System.out.println("0. Salir");
             System.out.print("Elegir una opcion: ");
 
@@ -134,8 +136,7 @@ public class GestionBiblioteca {
                     System.out.print(biblioteca.listaDeDocentesResponsables());
                     
                     // 3. ¿Qué socio tiene prestado el libro “Programando con JAVA”?
-                    System.out.println("\n-> Búsqueda de un libro prestado:");
-                    System.out.print("Ingrese el título del libro a buscar (ej. Programando con JAVA): ");
+                    System.out.println("\nIngrese el título del libro a buscar (ej. Programando con JAVA): ");
                     String tituloBuscado = teclado.nextLine(); // Leemos lo que escribe el usuario
                     
                     Libro libroBuscado = biblioteca.buscarLibroPrestado(tituloBuscado);
@@ -159,7 +160,57 @@ public class GestionBiblioteca {
                         for (Prestamo p : vencidos) {
                             System.out.println("- Libro: '" + p.getLibro().getTitulo() + "' | Socio deudor: " + p.getSocio().getNombre());
                         }
-                    }    
+                    }
+                    
+                    case 8: // Buscar Libro (Ver información completa)
+                    System.out.print("Ingrese el título del libro a buscar: ");
+                    String tituloBuscar = teclado.nextLine();
+                    boolean libroEncontrado = false;
+                    
+                    System.out.println("\n--- Resultados de la búsqueda ---");
+                    // Recorremos la biblioteca en caso de que existan múltiples copias del mismo título
+                    for (Libro l : biblioteca.getLibros()) {
+                        if (l.getTitulo().equalsIgnoreCase(tituloBuscar)) {
+                            System.out.println("Título: " + l.getTitulo());
+                            System.out.println("Edición: " + l.getEdicion());
+                            System.out.println("Editorial: " + l.getEditorial());
+                            System.out.println("Año: " + l.getAnio());
+                            System.out.println("Estado actual: " + (l.prestado() ? "PRESTADO" : "DISPONIBLE EN BIBLIOTECA"));
+                            System.out.println("---------------------------------");
+                            libroEncontrado = true;
+                        }
+                    }
+                    if (!libroEncontrado) {
+                        System.out.println("No se encontraron libros con el título '" + tituloBuscar + "'.");
+                    }
+                    break;
+
+                case 9: // Buscar Socio (Ver información y préstamos)
+                    System.out.print("Ingrese el DNI del socio a buscar: ");
+                    int dniBusqueda = teclado.nextInt();
+                    teclado.nextLine(); // Limpiar el buffer del scanner
+                    
+                    Socio socioBuscado = biblioteca.buscarSocio(dniBusqueda);
+                    
+                    if (socioBuscado != null) {
+                        System.out.println("\n--- Información del Socio ---");
+                        System.out.println(socioBuscado.toString()); // Muestra nombre, DNI, etc.
+                        System.out.println("Tipo de Socio: " + socioBuscado.soyDeLaClase());
+                        System.out.println("Libros actualmente en su poder: " + socioBuscado.cantLibrosPrestados());
+                        
+                        System.out.println("\n--- Historial de Préstamos ---");
+                        if (socioBuscado.getPrestamos().isEmpty()) {
+                            System.out.println("-> Este socio no tiene préstamos registrados.");
+                        } else {
+                            // Si tiene préstamos, recorremos su lista usando el toString() de Prestamo
+                            for (Prestamo p : socioBuscado.getPrestamos()) {
+                                System.out.println("-> " + p.toString());
+                            }
+                        }
+                    } else {
+                        System.out.println("No se encontró ningún socio registrado con el DNI " + dniBusqueda + ".");
+                    }
+                    break;
 
                 case 0: // Salir
                     System.out.println("Guardando datos antes de salir...");
